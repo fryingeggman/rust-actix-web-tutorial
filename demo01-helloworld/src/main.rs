@@ -1,5 +1,4 @@
-use actix_web::web::get;
-use actix_web::{get, post, App, HttpResponse, HttpServer, Responder};
+use actix_web::{get, post, web, App, HttpResponse, HttpServer, Responder};
 
 #[get("/")]
 async fn hello() -> impl Responder {
@@ -21,7 +20,7 @@ async fn main() -> std::io::Result<()> {
         App::new()
             .service(hello)
             .service(echo)
-            .route("/hey", get().to(manual_hello))
+            .route("/hey", web::get().to(manual_hello))
     })
     .bind(("0.0.0.0", 8000))?
     .run()
